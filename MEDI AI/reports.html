@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Reports - Medical AI Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>Medical AI Assistant</h1>
+    <p>Generated AI Reports</p>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Stored Reports</h2>
+        <button id="refreshReportsBtn">Refresh</button>
+      </div>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by survey ID, recommendation, or concern..."
+        class="search-box"
+      />
+
+      <div id="reportStatus" class="status">Loading reports...</div>
+      <div id="reportCards" class="cards"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="reports.js"></script>
+</body>
+</html>
