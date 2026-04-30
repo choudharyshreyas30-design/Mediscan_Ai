@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical AI Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-icon">⚕</span>
+        <div>
+          <h1>MedAssist AI</h1>
+          <p>Symptom Screening Dashboard</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="index.html" class="active">Dashboard</a>
+        <a href="reports.html">Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== DISCLAIMER ========== -->
+  <div class="disclaimer">
+    <span class="disc-icon">⚠️</span>
+    <span><strong>Important:</strong> This tool provides <em>educational screening guidance only</em> and is NOT a medical diagnosis. Always consult a qualified doctor for medical advice.</span>
+  </div>
+
+  <main class="container">
+
+    <!-- ========== INPUT FORM (NEW) ========== -->
+    <!-- CHANGE: Added full symptom input form for AI analysis -->
+    <section class="panel form-panel" id="inputSection">
+      <div class="panel-head">
+        <h2><span class="section-num">01</span> Symptom Check</h2>
+        <p class="panel-sub">Enter your details to receive a screening assessment</p>
+      </div>
+
+      <div class="form-grid">
+
+        <!-- Age -->
+        <div class="field-group">
+          <label for="ageInput">Age <span class="req">*</span></label>
+          <input type="number" id="ageInput" placeholder="e.g. 28" min="1" max="120" />
+        </div>
+
+        <!-- Gender -->
+        <div class="field-group">
+          <label for="genderSelect">Gender <span class="req">*</span></label>
+          <select id="genderSelect">
+            <option value="">-- Select --</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other / Prefer not to say</option>
+          </select>
+        </div>
+
+        <!-- City -->
+        <div class="field-group">
+          <label for="cityInput">City <span class="req">*</span></label>
+          <input type="text" id="cityInput" placeholder="e.g. Bhopal" />
+        </div>
+
+        <!-- Symptoms -->
+        <div class="field-group full-width">
+          <label>Symptoms <span class="req">*</span> <span class="hint">(Select all that apply)</span></label>
+          <div class="symptom-tags" id="symptomTags">
+            <button type="button" class="tag" data-symptom="fever">🌡 Fever</button>
+            <button type="button" class="tag" data-symptom="cough">😮‍💨 Cough</button>
+            <button type="button" class="tag" data-symptom="chest_pain">💔 Chest Pain</button>
+            <button type="button" class="tag" data-symptom="shortness_of_breath">😮 Shortness of Breath</button>
+            <button type="button" class="tag" data-symptom="fatigue">😴 Fatigue</button>
+            <button type="button" class="tag" data-symptom="headache">🤕 Headache</button>
+            <button type="button" class="tag" data-symptom="nausea">🤢 Nausea/Vomiting</button>
+            <button type="button" class="tag" data-symptom="joint_pain">🦴 Joint/Muscle Pain</button>
+            <button type="button" class="tag" data-symptom="dizziness">💫 Dizziness</button>
+            <button type="button" class="tag" data-symptom="rash">🔴 Skin Rash</button>
+            <button type="button" class="tag" data-symptom="abdominal_pain">🫃 Abdominal Pain</button>
+            <button type="button" class="tag" data-symptom="sore_throat">😖 Sore Throat</button>
+          </div>
+          <input type="text" id="otherSymptoms" placeholder="Other symptoms (optional, comma-separated)" class="mt-8" />
+        </div>
+
+        <!-- Pre-existing conditions -->
+        <div class="field-group full-width">
+          <label>Pre-existing Conditions <span class="hint">(Select all that apply)</span></label>
+          <div class="symptom-tags" id="conditionTags">
+            <button type="button" class="tag condition-tag" data-condition="diabetes">Diabetes</button>
+            <button type="button" class="tag condition-tag" data-condition="hypertension">Hypertension</button>
+            <button type="button" class="tag condition-tag" data-condition="heart_disease">Heart Disease</button>
+            <button type="button" class="tag condition-tag" data-condition="asthma">Asthma / COPD</button>
+            <button type="button" class="tag condition-tag" data-condition="thyroid">Thyroid Disorder</button>
+            <button type="button" class="tag condition-tag" data-condition="kidney">Kidney Disease</button>
+            <button type="button" class="tag condition-tag" data-condition="none">None</button>
+          </div>
+        </div>
+
+        <!-- Duration -->
+        <div class="field-group">
+          <label for="durationSelect">Symptom Duration <span class="req">*</span></label>
+          <select id="durationSelect">
+            <option value="">-- Select --</option>
+            <option value="today">Started today</option>
+            <option value="2_3_days">2–3 days</option>
+            <option value="week">About a week</option>
+            <option value="weeks_plus">More than 2 weeks</option>
+            <option value="months">Months / Chronic</option>
+          </select>
+        </div>
+
+        <!-- Severity -->
+        <div class="field-group">
+          <label for="severitySelect">Symptom Severity <span class="req">*</span></label>
+          <select id="severitySelect">
+            <option value="">-- Select --</option>
+            <option value="mild">Mild – Manageable, I can function</option>
+            <option value="moderate">Moderate – Affecting my daily routine</option>
+            <option value="severe">Severe – Significantly impacting me</option>
+          </select>
+        </div>
+
+        <!-- Analyze Button -->
+        <div class="field-group full-width center-btn">
+          <button id="analyzeBtn" class="analyze-btn">
+            <span id="btnText">🔍 Analyze My Symptoms</span>
+            <span id="btnLoader" class="loader-dots hidden">Analyzing<span>.</span><span>.</span><span>.</span></span>
+          </button>
+          <p id="formError" class="form-error hidden"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== RESULT SECTION (NEW) ========== -->
+    <!-- CHANGE: New result display panel, hidden until analysis runs -->
+    <section class="panel result-panel hidden" id="resultSection">
+
+      <div class="panel-head">
+        <h2><span class="section-num">02</span> Screening Result</h2>
+        <button id="resetBtn" class="ghost-btn">← New Analysis</button>
+      </div>
+
+      <!-- Risk Badge -->
+      <div class="risk-banner" id="riskBanner">
+        <div class="risk-label">Risk Level</div>
+        <div class="risk-badge" id="riskBadge">—</div>
+        <div class="risk-score" id="riskScore"></div>
+      </div>
+
+      <!-- Result Cards Grid -->
+      <div class="result-grid">
+
+        <div class="result-card">
+          <h4>🩺 Possible Concern Areas</h4>
+          <ul id="concernList"></ul>
+        </div>
+
+        <div class="result-card">
+          <h4>💊 Immediate Steps</h4>
+          <ul id="immediateStepsList"></ul>
+        </div>
+
+        <div class="result-card">
+          <h4>🥗 Lifestyle Suggestions</h4>
+          <ul id="lifestyleList"></ul>
+        </div>
+
+        <div class="result-card highlight-card">
+          <h4>👨‍⚕️ Recommended Doctor Type</h4>
+          <div id="doctorType" class="doctor-recommend"></div>
+        </div>
+
+      </div>
+
+      <!-- Aggregated Context Note -->
+      <div class="context-note" id="contextNote"></div>
+
+      <!-- Result Disclaimer -->
+      <div class="result-disclaimer">
+        <strong>⚠️ Disclaimer:</strong> This screening is for informational/educational purposes only. It is NOT a medical diagnosis. The suggestions above are general guidance. Please consult a qualified healthcare professional for proper evaluation and treatment.
+      </div>
+
+    </section>
+
+    <!-- ========== DASHBOARD OVERVIEW ========== -->
+    <section class="panel" id="dashboardPanel">
+      <div class="panel-head">
+        <h2><span class="section-num">03</span> Survey Dashboard</h2>
+        <button id="refreshBtn" class="ghost-btn">↻ Refresh</button>
+      </div>
+
+      <div id="status" class="status">Loading data...</div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h3 id="totalCount">0</h3>
+          <p>Total Responses</p>
+        </div>
+        <div class="stat-box high">
+          <h3 id="highCount">0</h3>
+          <p>High Risk</p>
+        </div>
+        <div class="stat-box medium">
+          <h3 id="mediumCount">0</h3>
+          <p>Medium Risk</p>
+        </div>
+        <div class="stat-box low">
+          <h3 id="lowCount">0</h3>
+          <p>Low Risk</p>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="riskChart"></canvas>
+      </div>
+
+      <div class="top-feature">
+        <strong>Most Requested Feature:</strong>
+        <span id="topFeature">Loading...</span>
+      </div>
+
+      <!-- Filter Toolbar -->
+      <div class="toolbar">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="High">High Risk</button>
+        <button class="filter-btn" data-filter="Medium">Medium Risk</button>
+        <button class="filter-btn" data-filter="Low">Low Risk</button>
+      </div>
+
+      <div id="cards" class="cards"></div>
+    </section>
+
+  </main>
+
+  <!-- ========== MODALS (unchanged structure) ========== -->
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Survey Details</h2>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="reportModal" class="modal">
+    <div class="modal-content">
+      <span id="closeReportModal" class="close">&times;</span>
+      <h2>Full AI Report</h2>
+      <div id="reportModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+  <script src="analyzer.js"></script>
+
+</body>
+</html>

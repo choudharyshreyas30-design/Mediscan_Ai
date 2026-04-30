@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Reports - Medical AI Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-icon">⚕</span>
+        <div>
+          <h1>MedAssist AI</h1>
+          <p>Generated AI Reports</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="reports.html" class="active">Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="disclaimer">
+    <span class="disc-icon">⚠️</span>
+    <span><strong>Important:</strong> Reports are for educational screening only and are NOT medical diagnoses. Please consult a qualified doctor for medical advice.</span>
+  </div>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-head">
+        <h2><span class="section-num">REPORTS</span> Stored AI Reports</h2>
+        <button id="refreshReportsBtn" class="ghost-btn">↻ Refresh</button>
+      </div>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by survey ID, recommendation, or concern..."
+        class="search-box"
+      />
+
+      <div id="reportStatus" class="status">Loading reports...</div>
+      <div id="reportCards" class="cards"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="reports.js"></script>
+</body>
+</html>
